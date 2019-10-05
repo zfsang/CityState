@@ -8,6 +8,7 @@ from citystate.core.utils import (
 )
 from citystate.data.player import Player
 from citystate.data.city import City
+from citystate.data.score import Score
 from citystate.core.constants import (
     SCREEN_RECT,
     NUMBER_OF_CITIES,
@@ -42,6 +43,7 @@ def main():
     for i in range(NUMBER_OF_CITIES):
         City([city_container, all_container])
 
+    score = Score(all_container)
     # Initialize player
     player = Player(all_container)
     while player.alive():
@@ -61,7 +63,7 @@ def main():
             city.kill()
             if city.occupied(player):
                 player.occupy_city()
-
+                score.update_score(player.cities_count)
         pygame.display.update(all_container.draw(screen))
 
     if pygame.mixer:
